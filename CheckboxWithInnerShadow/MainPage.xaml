@@ -7,13 +7,15 @@
    <StackLayout x:Name="stack"
                  VerticalOptions="Center"
                  HorizontalOptions="Center">
-        <local:Checkbox />
+        <local:Checkbox CanvasSize="{Binding Value}"/>
 
         <StackLayout x:Name="sizeSliderHolder"
                      Orientation="Vertical">
             <Slider x:Name="sizeSlider"
+                    Minimum="0"
+                    Maximum="200"
                     Value="{Binding Path=Value}"  />
-            <Label Text="{Binding Value, StringFormat='Luminosity = {0:F2}'}" />
+            <Label Text="{Binding Value, StringFormat='Size: = {0:F2}'}" />
         </StackLayout>
     </StackLayout>
 </ContentPage>

@@ -12,6 +12,11 @@ namespace CheckboxWithInnerShadow
         private static readonly float ShadowRatio = 0.4f;
         private static readonly float ShadowCoordinateRatio = (1 - ShadowRatio) / 2;
 
+        private SKColor boxColor = Color.FromHex("#3A87D3").ToSKColor();
+        private SKColor shadowColor = Color.FromHex("#1C68AF").ToSKColor();
+        private SKColor checkedColor = Color.FromHex("#F2CB3F").ToSKColor();
+
+
         public Checkbox()
         {
             InitializeComponent();
@@ -31,6 +36,30 @@ namespace CheckboxWithInnerShadow
             IsChecked = !IsChecked;
         }
 
+
+        public static readonly BindableProperty CanvasSizeProperty =
+            BindableProperty.Create(
+                propertyName: nameof(CanvasSize),
+                returnType: typeof(Double),
+                declaringType: typeof(Checkbox),
+                defaultValue: 100.00,
+                propertyChanged: OnCanvasSizeChanged);
+
+        public Double CanvasSize
+        {
+            get => (Double)GetValue(CanvasSizeProperty);
+            set => SetValue(CanvasSizeProperty, value);
+        }
+
+        private static void OnCanvasSizeChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            if (bindable is Checkbox typedBindable && newValue is Double typedValue)
+            {
+                typedBindable.CheckboxCanvas.HeightRequest = typedValue;
+                typedBindable.CheckboxCanvas.WidthRequest = typedValue;
+            }
+        }
+
         void OnCanvasViewPaintSurface(object sender, SKPaintSurfaceEventArgs args)
         {
             SKImageInfo info = args.Info;
@@ -46,7 +75,7 @@ namespace CheckboxWithInnerShadow
                 SKPaint paint = new SKPaint
                 {
                     Style = SKPaintStyle.Stroke,
-                    Color = Color.Blue.ToSKColor(),
+                    Color = checkedColor,
                     StrokeWidth = height
                 };
                 canvas.DrawRect(0, 0, width, height, paint);
@@ -56,7 +85,7 @@ namespace CheckboxWithInnerShadow
                 SKPaint paint = new SKPaint
                 {
                     Style = SKPaintStyle.Stroke,
-                    Color = Color.Black.ToSKColor(),
+                    Color = shadowColor,
                     StrokeWidth = height
                 };
                 canvas.DrawRect(0, 0, width, height, paint);
@@ -70,7 +99,7 @@ namespace CheckboxWithInnerShadow
                 SKPaint innerPaint = new SKPaint
                 {
                     Style = SKPaintStyle.Stroke,
-                    Color = Color.Red.ToSKColor(),
+                    Color = boxColor,
                     StrokeWidth = innerHeight,
                     MaskFilter = SKMaskFilter.CreateBlur(SKBlurStyle.Normal, 9.0f)
                 };
@@ -85,6 +114,7 @@ namespace CheckboxWithInnerShadow
             switch (propertyName)
             {
                 case nameof(IsChecked):
+                case nameof(CanvasSize):
                 case nameof(Height):
                 case nameof(Width):
                     CheckboxCanvas.InvalidateSurface();
