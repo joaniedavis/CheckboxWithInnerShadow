@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:CheckboxWithInnerShadow"
+             x:Name="root"
+             x:Class="CheckboxWithInnerShadow.MainPage">
+   <StackLayout x:Name="stack"
+                 VerticalOptions="Center"
+                 HorizontalOptions="Center">
+        <local:Checkbox />
+
+        <StackLayout x:Name="sizeSliderHolder"
+                     Orientation="Vertical">
+            <Slider x:Name="sizeSlider"
+                    Value="{Binding Path=Value}"  />
+            <Label Text="{Binding Value, StringFormat='Luminosity = {0:F2}'}" />
+        </StackLayout>
+    </StackLayout>
+</ContentPage>
