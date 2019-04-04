@@ -19,5 +19,20 @@ namespace CheckboxWithInnerShadow
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Value"));
             }
         }
+
+
+        private float _ratio = 0.4f;
+        public float Ratio
+        {
+            get
+            {
+                return _ratio;
+            }
+            set
+            {
+                _ratio = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Ratio"));
+            }
+        }
     }
 }

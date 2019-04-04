@@ -9,8 +9,8 @@ namespace CheckboxWithInnerShadow
 {
     public partial class Checkbox : ContentView
     {
-        private static readonly float ShadowRatio = 0.4f;
-        private static readonly float ShadowCoordinateRatio = (1 - ShadowRatio) / 2;
+//        private static readonly float ShadowRatio = 0.4f;
+//        private static readonly float ShadowCoordinateRatio = (1 - ShadowRatio) / 2;
 
         private SKColor boxColor = Color.FromHex("#3A87D3").ToSKColor();
         private SKColor shadowColor = Color.FromHex("#1C68AF").ToSKColor();
@@ -60,6 +60,27 @@ namespace CheckboxWithInnerShadow
             }
         }
 
+        public static readonly BindableProperty ShadowRatioProperty =
+            BindableProperty.Create(
+                propertyName: nameof(ShadowRatio),
+                returnType: typeof(float),
+                declaringType: typeof(Checkbox),
+                defaultValue: 0.4f);
+
+        public float ShadowRatio
+        {
+            get => (float) GetValue(ShadowRatioProperty);
+            set => SetValue(ShadowRatioProperty, value);
+        }
+
+//        private static void OnShadowRatioChanged(BindableObject bindable, object oldValue, object newValue)
+//        {
+//            if (bindable is Checkbox typedBindable && newValue is float typedValue)
+//            {
+//                typedBindable.elementName.propertyAttribute = typedValue;
+//            }
+//        }
+
         void OnCanvasViewPaintSurface(object sender, SKPaintSurfaceEventArgs args)
         {
             SKImageInfo info = args.Info;
@@ -90,6 +111,7 @@ namespace CheckboxWithInnerShadow
                 };
                 canvas.DrawRect(0, 0, width, height, paint);
 
+                float ShadowCoordinateRatio = (1 - ShadowRatio) / 2;
 
                 float innerWidth = (float)(width * ShadowRatio);
                 float innerHeight = (float)(height * ShadowRatio);
@@ -117,6 +139,7 @@ namespace CheckboxWithInnerShadow
                 case nameof(CanvasSize):
                 case nameof(Height):
                 case nameof(Width):
+                case nameof(ShadowRatio):
                     CheckboxCanvas.InvalidateSurface();
                     break;
             }
