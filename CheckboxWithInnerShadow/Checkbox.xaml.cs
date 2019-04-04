@@ -9,8 +9,6 @@ namespace CheckboxWithInnerShadow
 {
     public partial class Checkbox : ContentView
     {
-//        private static readonly float ShadowRatio = 0.4f;
-//        private static readonly float ShadowCoordinateRatio = (1 - ShadowRatio) / 2;
 
         private SKColor boxColor = Color.FromHex("#3A87D3").ToSKColor();
         private SKColor shadowColor = Color.FromHex("#1C68AF").ToSKColor();
