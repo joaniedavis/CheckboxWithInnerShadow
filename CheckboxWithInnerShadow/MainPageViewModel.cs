@@ -34,5 +34,21 @@ namespace CheckboxWithInnerShadow
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Ratio"));
             }
         }
+
+
+
+        private float _shadowMaskSigma = 9.0f;
+        public float ShadowMaskSigma
+        {
+            get
+            {
+                return _shadowMaskSigma;
+            }
+            set
+            {
+                _shadowMaskSigma = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("ShadowMaskSigma"));
+            }
+        }
     }
 }

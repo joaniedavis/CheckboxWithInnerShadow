@@ -73,13 +73,18 @@ namespace CheckboxWithInnerShadow
             set => SetValue(ShadowRatioProperty, value);
         }
 
-//        private static void OnShadowRatioChanged(BindableObject bindable, object oldValue, object newValue)
-//        {
-//            if (bindable is Checkbox typedBindable && newValue is float typedValue)
-//            {
-//                typedBindable.elementName.propertyAttribute = typedValue;
-//            }
-//        }
+        public static readonly BindableProperty ShadowMaskSigmaProperty =
+            BindableProperty.Create(
+                propertyName: nameof(ShadowMaskSigma),
+                returnType: typeof(float),
+                declaringType: typeof(Checkbox),
+                defaultValue: 9.0f);
+
+        public float ShadowMaskSigma
+        {
+            get => (float) GetValue(ShadowMaskSigmaProperty);
+            set => SetValue(ShadowMaskSigmaProperty, value);
+        }
 
         void OnCanvasViewPaintSurface(object sender, SKPaintSurfaceEventArgs args)
         {
@@ -123,7 +128,7 @@ namespace CheckboxWithInnerShadow
                     Style = SKPaintStyle.Stroke,
                     Color = boxColor,
                     StrokeWidth = innerHeight,
-                    MaskFilter = SKMaskFilter.CreateBlur(SKBlurStyle.Normal, 9.0f)
+                    MaskFilter = SKMaskFilter.CreateBlur(SKBlurStyle.Normal, ShadowMaskSigma)
                 };
                 canvas.DrawRect(innerY, innerX, innerWidth, innerHeight, innerPaint);
             }
@@ -140,6 +145,7 @@ namespace CheckboxWithInnerShadow
                 case nameof(Height):
                 case nameof(Width):
                 case nameof(ShadowRatio):
+                case nameof(ShadowMaskSigma):
                     CheckboxCanvas.InvalidateSurface();
                     break;
             }

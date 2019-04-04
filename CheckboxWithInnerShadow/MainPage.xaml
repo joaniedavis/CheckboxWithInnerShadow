@@ -8,17 +8,23 @@
                  VerticalOptions="Center"
                  HorizontalOptions="Center">
         <local:Checkbox CanvasSize="{Binding Value}"
-                        ShadowRatio="{Binding Ratio}"/>
+                        ShadowRatio="{Binding Ratio}"
+                        ShadowMaskSigma="{Binding ShadowMaskSigma}"/>
 
             <Slider x:Name="sizeSlider"
                     Minimum="0"
                     Maximum="200"
                     Value="{Binding Path=Value}"  />
             <Label Text="{Binding Value, StringFormat='Size: = {0:F2}'}" />
-            <Slider x:Name="ratioSlider"
-                    Minimum="0"
-                    Maximum="1"
-                    Value="{Binding Path=Ratio}"  />
-            <Label Text="{Binding Ratio, StringFormat='Shadow Ratio: = {0:F2}'}" />
+        <Slider x:Name="ratioSlider"
+                Minimum="0"
+                Maximum="1"
+                Value="{Binding Path=Ratio}"  />
+        <Label Text="{Binding Ratio, StringFormat='Shadow Ratio: = {0:F2}'}" />
+        <Slider x:Name="sigmaSlider"
+                Minimum="0"
+                Maximum="20"
+                Value="{Binding Path=ShadowMaskSigma}"  />
+        <Label Text="{Binding ShadowMaskSigma, StringFormat='Shadow Mask Sigma: = {0:F2}'}" />
         </StackLayout>
 </ContentPage>
